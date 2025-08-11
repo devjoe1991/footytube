@@ -1,0 +1,23 @@
+{
+  "name": "retarded-video-player",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dl:videos": "node scripts/download-videos.mjs"
+  },
+  "devDependencies": {
+    "vite": "^3.0.0"
+  },
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "cannon-es-debugger": "^1.0.0",
+    "three": "^0.160.1",
+    "yt-dlp-wrap": "^2.3.12",
+    "react": "^18.2.0",
+    "react-helmet": "^6.1.0"
+  }
+}
