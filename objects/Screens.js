@@ -105,8 +105,7 @@ function getVideoObject(scene) {
   // Ensure the texture updates once data is available
   video.addEventListener('loadeddata', () => {
     videoTexture.needsUpdate = true;
-    video.play();
-    video.pause();
+    video.currentTime = 0.1;
   });
 
   const geometry = new THREE.BoxGeometry(
