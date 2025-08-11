@@ -21,6 +21,7 @@ function create(scene, loader) {
         heliAudio.currentTime = 0;
         heliAudio.play();
       });
+      heliAudio.play();
     }
   });
 }
@@ -80,7 +81,7 @@ function updateVolume(camera) {
   }
 }
 
-let audio = false;
+let audio = true;
 const audioBtn = document.getElementById('audio-btn');
 
 audioBtn.onclick = () => {
