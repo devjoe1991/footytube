@@ -4,7 +4,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import Stadium from './objects/Stadium';
 import Football from './objects/Football';
 import Screens from './objects/Screens';
-const { screens } = Screens;
 import Stars from './objects/Stars';
 import Helicopter from './objects/Helicopter';
 import {
@@ -41,8 +40,8 @@ const gltfLoader = new GLTFLoader();
 
 Stadium.create(scene, world, gltfLoader);
 Football.create(scene, world, gltfLoader);
-const screens = Screens.create(scene, world);
-Football.setupCollisions(screens);
+const createdScreens = Screens.create(scene, world);
+Football.setupCollisions(createdScreens);
 Stars.create(scene);
 Helicopter.create(scene, gltfLoader);
 
@@ -77,7 +76,7 @@ window.onresize = () => {
 
 const startBtn = document.getElementById('start-btn');
 startBtn.addEventListener('click', () => {
-  for (const screen of screens) {
+  for (const screen of Screens.screens) {
     screen.video.play();
     screen.video.pause();
   }
