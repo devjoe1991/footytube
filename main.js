@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import Stadium from './objects/Stadium';
 import Football from './objects/Football';
 import Screens from './objects/Screens';
+const { screens } = Screens;
 import Stars from './objects/Stars';
 import Helicopter from './objects/Helicopter';
 import {
@@ -73,3 +74,12 @@ window.onresize = () => {
   camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
 }
+
+const startBtn = document.getElementById('start-btn');
+startBtn.addEventListener('click', () => {
+  for (const screen of screens) {
+    screen.video.play();
+    screen.video.pause();
+  }
+  startBtn.remove();
+});

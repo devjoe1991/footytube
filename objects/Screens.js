@@ -146,4 +146,4 @@ function addBorderBox(surface) {
   surface.add(borderMesh);
 }
 
-export default { create, animate };
+export default { create, animate, screens };
