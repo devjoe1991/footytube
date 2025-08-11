@@ -78,6 +78,10 @@ function getVideoObject(scene) {
   video.playsInline = true;
   video.setAttribute('playsinline', '');
   video.setAttribute('webkit-playsinline', '');
+  // Additional compatibility attributes
+  video.setAttribute('autoplay', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('x-webkit-airplay', 'allow');
   // Prefer preloading and looping for seamless playback
   video.preload = 'auto';
   video.loop = true;
@@ -88,9 +92,19 @@ function getVideoObject(scene) {
 
   video.src = src;
   // Helpful diagnostics in dev
-  video.addEventListener('error', () => {
-    console.error('Video error for src:', video.src, video.error);
+  video.addEventListener('error', (e) => {
+    console.error('Video error for src:', video.src, video.error, e);
   });
+  
+  // Add load event listener for better error handling
+  video.addEventListener('loadstart', () => {
+    console.log('Video loading started:', src);
+  });
+  
+  video.addEventListener('canplay', () => {
+    console.log('Video can play:', src);
+  });
+  
   video.dataset.title = title;
 
   const videoTexture = new THREE.VideoTexture(video);

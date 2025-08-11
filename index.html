@@ -2,7 +2,66 @@
 <html lang="en">
   <head>
     <title>Retarded Video Player</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Polyfill for older browsers -->
+    <script>
+      // Basic polyfills for older browsers
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function(callback) {
+          return setTimeout(callback, 1000 / 60);
+        };
+      }
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+          clearTimeout(id);
+        };
+      }
+      
+      // Polyfill for Object.assign
+      if (typeof Object.assign !== 'function') {
+        Object.assign = function(target) {
+          if (target == null) {
+            throw new TypeError('Cannot convert undefined or null to object');
+          }
+          var to = Object(target);
+          for (var index = 1; index < arguments.length; index++) {
+            var nextSource = arguments[index];
+            if (nextSource != null) {
+              for (var nextKey in nextSource) {
+                if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                  to[nextKey] = nextSource[nextKey];
+                }
+              }
+            }
+          }
+          return to;
+        };
+      }
+      
+      // Polyfill for Array.find
+      if (!Array.prototype.find) {
+        Array.prototype.find = function(predicate) {
+          if (this == null) {
+            throw new TypeError('Array.prototype.find called on null or undefined');
+          }
+          if (typeof predicate !== 'function') {
+            throw new TypeError('predicate must be a function');
+          }
+          var list = Object(this);
+          var length = parseInt(list.length) || 0;
+          var thisArg = arguments[1];
+          for (var i = 0; i < length; i++) {
+            var element = list[i];
+            if (predicate.call(thisArg, element, i, list)) {
+              return element;
+            }
+          }
+          return undefined;
+        };
+      }
+    </script>
     <style>
       * {
         font-family: 'Courier New', monospace;
@@ -43,6 +102,27 @@
           padding: 12px 16px !important;
           font-size: 16px !important;
           border-radius: 10px !important;
+        }
+      }
+
+      /* Touch-friendly improvements for mobile */
+      @media (max-width: 768px) {
+        .btn {
+          min-height: 44px;
+          min-width: 44px;
+        }
+        
+        #start-btn {
+          font-size: 24px;
+          padding: 20px;
+        }
+      }
+
+      /* Fallback for browsers that don't support CSS Grid */
+      @supports not (display: grid) {
+        .yt-footer {
+          display: block;
+          text-align: center;
         }
       }
 
